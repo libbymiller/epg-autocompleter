@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html
+xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<script type='text/javascript' src='autocomplete/lib/jquery.js'></script>
+<script type='text/javascript' src='autocomplete/lib/jquery.bgiframe.min.js'></script>
+<script type='text/javascript' src='autocomplete/lib/jquery.ajaxQueue.js'></script>
+<script type='text/javascript' src='autocomplete/lib/thickbox-compressed.js'></script>
+<script type='text/javascript' src='autocomplete/lib/jquery.autocomplete.js'></script>
+<script type='text/javascript' src='autocomplete/lib/localdata.js'></script>
+<link rel="stylesheet" type="text/css" href="autocomplete/lib/jquery.autocomplete.css" />
+
+<script type="text/javascript">
+
+z = "http://dev.notu.be/2010/10/crawler/epg";
+
+function insert(script) {
+   var headID = document.getElementsByTagName("head")[0];
+   var newScript = document.createElement('script');
+   newScript.type = 'text/javascript';
+   newScript.src = script;
+   headID.appendChild(newScript);
+}
+
+
+function search(txt){
+//   alert(z+"?q="+escape(txt)+"&fmt=json");
+//   txt = myform.elements["suggest"]; 
+   insert(z+"?q="+escape(txt)+"&fmt=json");
+}
+
+function results(ob){
+
+  var html = "";
+  if(ob.length==0){
+    html="Sorry, nothing found";
+  }
+  for (var i in ob){
+     html = html+"<p><a href=\""+ob[i]["crid"]+"\">"+ob[i]["title"]+":"+ob[i]["core_title"]+"</a> ("+ob[i]["tx_date"]+")</p>\n"
+  }
+ r = document.getElementById("results");
+ r.innerHTML=html;
+}
+
+function formatItem(row) {
+   return "<strong>" + row[0] + "</strong>";
+}
+
+function formatResult(row) {
+    return row[0];
+//   return row[0].replace(/(<.+?>)/gi, '');
+}
+
+
+$().ready(function() {
+
+	$("#suggest").autocomplete('2010/10/crawler/epg', {
+		width: 300,
+		multiple: true,
+		delay: 200,
+		matchContains: true,
+		formatItem: formatItem,
+		formatResult: formatResult,
+                max: 10
+                
+	});
+
+        $("#suggest").result(function(event, data, formatted) {
+           $("#date").val(data[1]);
+           $("#channel").val(data[2]);
+        });
+
+	$("#suggest2").autocomplete('2010/10/crawler/channel', {
+		width: 300,
+		multiple: true,
+		delay: 200,
+		matchContains: true,
+		formatItem: formatItem,
+		formatResult: formatResult,
+                max: 10
+                
+	});
+
+        $("#suggest2").result(function(event, data, formatted) {
+           $("#date2").val(data[1]);
+           $("#channel2").val(data[2]);
+        });
+
+	$("#suggest3").autocomplete('2010/10/crawler/desc', {
+		width: 300,
+		multiple: true,
+		delay: 200,
+		matchContains: true,
+		formatItem: formatItem,
+		formatResult: formatResult,
+                max: 10
+                
+	});
+
+        $("#suggest3").result(function(event, data, formatted) {
+           $("#date3").val(data[1]);
+           $("#channel3").val(data[2]);
+        });
+
+});
+
+
+
+
+</script>
+</head>
+
+<body>
+
+<p>Search for what's on today by title (uses autocomplete):</p>
+
+<p>Try 'news' (without quotes)</p>
+
+<form action="search">
+<textarea type="text" id="suggest" name="q" height="4" width="100">
+</textarea>
+<input type="hidden" id="fmt" name="fmt" value="html" />
+<input type="submit" name="go" value="go"/>
+<input type="hidden" id="date" name="date" />
+<input type="hidden" id="channel" name="channel" />
+</form>
+
+<p>Type in a channel to get what what's on now on it (uses autocomplete):</p>
+
+<p>Try 'BBC' or 'ITV' or 'radio' (without quotes)</p>
+
+<form action="search">
+<textarea type="text" id="suggest2" name="q" height="4" width="100">
+</textarea>
+<input type="hidden" id="fmt2" name="fmt" value="html" />
+<input type="submit" name="go" value="go"/>
+<input type="hidden" id="date2" name="date" />
+<input type="hidden" id="channel2" name="channel" />
+</form>
+
+<p>Type in a word to search titles and descriptions (uses autocomplete):</p>
+
+<p>Try 'stephen' (without quotes)</p>
+
+<form action="search">
+<textarea type="text" id="suggest3" name="q" height="4" width="100">
+</textarea>
+<input type="hidden" id="fmt3" name="fmt" value="html" />
+<input type="submit" name="go" value="go"/>
+<input type="hidden" id="date3" name="date" />
+<input type="hidden" id="channel3" name="channel" />
+</form>
+
+</body>
+</html>
+
