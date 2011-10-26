@@ -1,0 +1,122 @@
+
+
+mysql> describe channelscan_channel;
++--------------------+-----------------------+------+-----+---------+-------+
+| Field              | Type                  | Null | Key | Default | Extra |
++--------------------+-----------------------+------+-----+---------+-------+
+| transportid        | int(6) unsigned       | NO   |     | NULL    |       |
+| scanid             | int(3) unsigned       | NO   |     | NULL    |       |
+| mplex_id           | smallint(6)           | NO   |     | NULL    |       |
+| source_id          | int(3) unsigned       | NO   |     | NULL    |       |
+| channel_id         | int(3) unsigned       | NO   |     | 0       |       |
+| callsign           | varchar(20)           | NO   |     |         |       |
+| service_name       | varchar(64)           | NO   |     |         |       |
+| chan_num           | varchar(10)           | NO   |     |         |       |
+| service_id         | mediumint(8) unsigned | NO   |     | 0       |       |
+| atsc_major_channel | int(4) unsigned       | NO   |     | 0       |       |
+| atsc_minor_channel | int(4) unsigned       | NO   |     | 0       |       |
+| use_on_air_guide   | tinyint(1)            | NO   |     | 0       |       |
+| hidden             | tinyint(1)            | NO   |     | 0       |       |
+| hidden_in_guide    | tinyint(1)            | NO   |     | 0       |       |
+| freqid             | varchar(10)           | NO   |     |         |       |
+| icon               | varchar(255)          | NO   |     |         |       |
+| tvformat           | varchar(10)           | NO   |     | Default |       |
+| xmltvid            | varchar(64)           | NO   |     |         |       |
+| pat_tsid           | int(5) unsigned       | NO   |     | 0       |       |
+| vct_tsid           | int(5) unsigned       | NO   |     | 0       |       |
+| vct_chan_tsid      | int(5) unsigned       | NO   |     | 0       |       |
+| sdt_tsid           | int(5) unsigned       | NO   |     | 0       |       |
+| orig_netid         | int(5) unsigned       | NO   |     | 0       |       |
+| netid              | int(5) unsigned       | NO   |     | 0       |       |
+| si_standard        | varchar(10)           | NO   |     | NULL    |       |
+| in_channels_conf   | tinyint(1) unsigned   | NO   |     | 0       |       |
+| in_pat             | tinyint(1) unsigned   | NO   |     | 0       |       |
+| in_pmt             | tinyint(1) unsigned   | NO   |     | 0       |       |
+| in_vct             | tinyint(1) unsigned   | NO   |     | 0       |       |
+| in_nit             | tinyint(1) unsigned   | NO   |     | 0       |       |
+| in_sdt             | tinyint(1) unsigned   | NO   |     | 0       |       |
+| is_encrypted       | tinyint(1) unsigned   | NO   |     | 0       |       |
+| is_data_service    | tinyint(1) unsigned   | NO   |     | 0       |       |
+| is_audio_service   | tinyint(1) unsigned   | NO   |     | 0       |       |
+| is_opencable       | tinyint(1) unsigned   | NO   |     | 0       |       |
+| could_be_opencable | tinyint(1) unsigned   | NO   |     | 0       |       |
+| decryption_status  | smallint(2) unsigned  | NO   |     | 0       |       |
+| default_authority  | varchar(32)           | NO   |     |         |       |
++--------------------+-----------------------+------+-----+---------+-------+
+38 rows in set (0.01 sec)
+
+
+mysql> describe channel;
++-------------------+-----------------------+------+-----+---------+-------+
+| Field             | Type                  | Null | Key | Default | Extra |
++-------------------+-----------------------+------+-----+---------+-------+
+| chanid            | int(10) unsigned      | NO   | PRI | 0       |       |
+| channum           | varchar(10)           | NO   | MUL |         |       |
+| freqid            | varchar(10)           | YES  |     | NULL    |       |
+| sourceid          | int(10) unsigned      | YES  | MUL | NULL    |       |
+| callsign          | varchar(20)           | NO   |     |         |       |
+| name              | varchar(64)           | NO   |     |         |       |
+| icon              | varchar(255)          | NO   |     | none    |       |
+| finetune          | int(11)               | YES  |     | NULL    |       |
+| videofilters      | varchar(255)          | NO   |     |         |       |
+| xmltvid           | varchar(64)           | NO   |     |         |       |
+| recpriority       | int(10)               | NO   |     | 0       |       |
+| contrast          | int(11)               | YES  |     | 32768   |       |
+| brightness        | int(11)               | YES  |     | 32768   |       |
+| colour            | int(11)               | YES  |     | 32768   |       |
+| hue               | int(11)               | YES  |     | 32768   |       |
+| tvformat          | varchar(10)           | NO   |     | Default |       |
+| visible           | tinyint(1)            | NO   | MUL | 1       |       |
+| outputfilters     | varchar(255)          | NO   |     |         |       |
+| useonairguide     | tinyint(1)            | YES  |     | 0       |       |
+| mplexid           | smallint(6)           | YES  |     | NULL    |       |
+| serviceid         | mediumint(8) unsigned | YES  |     | NULL    |       |
+| tmoffset          | int(11)               | NO   |     | 0       |       |
+| atsc_major_chan   | int(10) unsigned      | NO   |     | 0       |       |
+| atsc_minor_chan   | int(10) unsigned      | NO   |     | 0       |       |
+| last_record       | datetime              | NO   |     | NULL    |       |
+| default_authority | varchar(32)           | NO   |     |         |       |
+| commmethod        | int(11)               | NO   |     | -1      |       |
++-------------------+-----------------------+------+-----+---------+-------+
+27 rows in set (0.00 sec)
+
+mysql> describe program;
++-------------------------+-------------------------------------------------------------------+------+-----+---------------------+-------+
+| Field                   | Type                                                              | Null | Key | Default             | Extra |
++-------------------------+-------------------------------------------------------------------+------+-----+---------------------+-------+
+| chanid                  | int(10) unsigned                                                  | NO   | PRI | 0                   |       |
+| starttime               | datetime                                                          | NO   | PRI | 0000-00-00 00:00:00 |       |
+| endtime                 | datetime                                                          | NO   | MUL | 0000-00-00 00:00:00 |       |
+| title                   | varchar(128)                                                      | NO   | MUL |                     |       |
+| subtitle                | varchar(128)                                                      | NO   |     |                     |       |
+| description             | varchar(16000)                                                    | NO   |     |                     |       |
+| category                | varchar(64)                                                       | NO   |     |                     |       |
+| category_type           | varchar(64)                                                       | NO   |     |                     |       |
+| airdate                 | year(4)                                                           | NO   |     | 0000                |       |
+| stars                   | float                                                             | NO   |     | 0                   |       |
+| previouslyshown         | tinyint(4)                                                        | NO   | MUL | 0                   |       |
+| title_pronounce         | varchar(128)                                                      | NO   | MUL |                     |       |
+| stereo                  | tinyint(1)                                                        | NO   |     | 0                   |       |
+| subtitled               | tinyint(1)                                                        | NO   |     | 0                   |       |
+| hdtv                    | tinyint(1)                                                        | NO   |     | 0                   |       |
+| closecaptioned          | tinyint(1)                                                        | NO   |     | 0                   |       |
+| partnumber              | int(11)                                                           | NO   |     | 0                   |       |
+| parttotal               | int(11)                                                           | NO   |     | 0                   |       |
+| seriesid                | varchar(64)                                                       | NO   | MUL |                     |       |
+| originalairdate         | date                                                              | YES  |     | NULL                |       |
+| showtype                | varchar(30)                                                       | NO   |     |                     |       |
+| colorcode               | varchar(20)                                                       | NO   |     |                     |       |
+| syndicatedepisodenumber | varchar(20)                                                       | NO   |     |                     |       |
+| programid               | varchar(64)                                                       | NO   | MUL |                     |       |
+| manualid                | int(10) unsigned                                                  | NO   | PRI | 0                   |       |
+| generic                 | tinyint(1)                                                        | YES  |     | 0                   |       |
+| listingsource           | int(11)                                                           | NO   |     | 0                   |       |
+| first                   | tinyint(1)                                                        | NO   |     | 0                   |       |
+| last                    | tinyint(1)                                                        | NO   |     | 0                   |       |
+| audioprop               | set('STEREO','MONO','SURROUND','DOLBY','HARDHEAR','VISUALIMPAIR') | NO   |     | NULL                |       |
+| subtitletypes           | set('HARDHEAR','NORMAL','ONSCREEN','SIGNED')                      | NO   |     | NULL                |       |
+| videoprop               | set('HDTV','WIDESCREEN','AVC')                                    | NO   |     | NULL                |       |
++-------------------------+-------------------------------------------------------------------+------+-----+---------------------+-------+
+32 rows in set (0.01 sec)
+
+

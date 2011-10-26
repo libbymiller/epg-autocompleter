@@ -1,0 +1,47 @@
+mysql> use epgs
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables
+    -> ;
++----------------+
+| Tables_in_epgs |
++----------------+
+| pid_data       | 
+| todays_epg     | 
++----------------+
+2 rows in set (0.00 sec)
+
+
+mysql> describe pid_data;
++-------------------+--------------+------+-----+---------+-------+
+| Field             | Type         | Null | Key | Default | Extra |
++-------------------+--------------+------+-----+---------+-------+
+| pid               | varchar(64)  | YES  |     | NULL    |       | 
+| title             | varchar(128) | YES  |     | NULL    |       | 
+| start             | datetime     | YES  |     | NULL    |       | 
+| end               | datetime     | YES  |     | NULL    |       | 
+| service           | varchar(20)  | YES  |     | NULL    |       | 
+| service_title     | varchar(30)  | YES  |     | NULL    |       | 
+| dvb_service_title | varchar(30)  | YES  |     | NULL    |       | 
++-------------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+
+mysql> describe todays_epg;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| crid        | varchar(64)  | YES  |     | NULL    |       | 
+| dvb         | varchar(128) | YES  |     | NULL    |       | 
+| start       | datetime     | YES  |     | NULL    |       | 
+| end         | datetime     | YES  |     | NULL    |       | 
+| chan_num    | varchar(10)  | YES  |     | NULL    |       | 
+| channel     | varchar(20)  | YES  |     | NULL    |       | 
+| title       | varchar(128) | YES  | MUL | NULL    |       | 
+| subtitle    | varchar(128) | YES  |     | NULL    |       | 
+| description | text         | YES  |     | NULL    |       | 
++-------------+--------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
